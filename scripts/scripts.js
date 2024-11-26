@@ -1,4 +1,4 @@
-/****************** YOUR NAME: 
+/****************** YOUR NAME:
 
 The instructions describe the missing logic that is needed; you will translate these into JavaScript in the places indicated.
 
@@ -11,9 +11,7 @@ You are encouraged to use the provided naming convention for ease of review.
 
 // INSERT YOUR CODE HERE
 
-
-
-
+let [modelName, duration] = ['XYZ', 0];
 
 /****************** helper function ******************/
 /* create a function called recalculate() which will
@@ -27,14 +25,20 @@ You are encouraged to use the provided naming convention for ease of review.
 
 // INSERT YOUR CODE HERE
 
+const recalculate = () => {
+	const models = {
+		XYZ: 100,
+		CPRG: 213,
+	};
+	const costLabel = document.getElementById('calculated-cost');
+	const newTotalCost = models[modelName] * duration;
 
-
-
-
+	costLabel.innerHTML = newTotalCost;
+};
 
 /****************** model button logic ******************/
 
-/* 
+/*
 - first, create a variable to represent the "Switch Model" pseudo-button (hint: can use getElementById)
 - second, create a function called changeModel() which checks the value of the model name variable. This function will:
     - create a variable to represent the model-text span element
@@ -42,16 +46,23 @@ You are encouraged to use the provided naming convention for ease of review.
     - if modelName is currently "CPRG", change the value of modelName to "XYZ", and change the innerHTML of the model-text span element to "Model XYZ"
     - then, recalculate() the total cost.
 - finally, uncomment the following line of JavaScript to have this function run automatically whenever the pseudo-button is clicked: */
-    // modelButton.addEventListener("click", changeModel);
 
 // INSERT YOUR CODE HERE
 
+const toggleModelButton = document.getElementById('model-button');
 
+const toggleModel = () => {
+	console.log('toggleModel');
+	const modelText = document.getElementById('model-text');
 
+	modelText.innerHTML = modelName === 'XYZ' ? 'Model CPRG' : 'Model XYZ';
 
+	modelName = modelName === 'XYZ' ? 'CPRG' : 'XYZ';
 
+	recalculate();
+};
 
-
+toggleModelButton.addEventListener('click', toggleModel);
 /****************** duration button logic ******************/
 /*  - first, create a variable to represent the "Change Duration" pseudo-button.
     - then, create a function called changeDuration() that will
@@ -64,6 +75,17 @@ You are encouraged to use the provided naming convention for ease of review.
 */
 
 // INSERT YOUR CODE HERE
+const durationButton = document.getElementById('duration-button');
 
+const changeDuration = () => {
+	const durationText = document.getElementById('duration-text');
+	duration = parseInt(
+		prompt('Enter how many days you would like to book this model for: ')
+	);
 
+	durationText.innerHTML = duration;
 
+	recalculate();
+};
+
+durationButton.addEventListener('click', changeDuration);
